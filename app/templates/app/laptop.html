@@ -1,0 +1,51 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Laptop-Product{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+  <div class="row">
+
+    <!-- Sidebar (Laptop Categories) -->
+    <div class="col-md-3">
+      <div class="list-group shadow-sm">
+        <a href="{% url 'laptop' %}" class="list-group-item list-group-item-action active">All Laptops items</a>
+        <a href="{% url 'laptopdata' 'Mac' %}" class="list-group-item list-group-item-action">Mac Laptop</a>
+        <a href="{% url 'laptopdata' 'Asur' %}" class="list-group-item list-group-item-action">Acer Laptop</a>
+        <a href="{% url 'laptopdata' 'Dell' %}" class="list-group-item list-group-item-action">Dell Laptop</a>
+        <a href="{% url 'laptopdata' 'Below' %}" class="list-group-item list-group-item-action">Below 15,000</a>
+        <a href="{% url 'laptopdata' 'Above' %}" class="list-group-item list-group-item-action">Above 15,000</a>
+      </div>
+    </div>
+
+    <!-- laptop Products Section -->
+    <div class="col-md-9">
+      <h2 class="my-4 text-center">Latest Laptops</h2>
+
+      <div class="row">
+        {% for laptop in laptops %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100 shadow-sm border-0 rounded product-card">
+            <img src="{{ laptop.product_image.url }}" class="card-img-top product-img" alt="{{ mobile.title }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ laptop.title }}</h5>
+              <p class="text-muted small">{{ laptop.description|truncatewords:12 }}</p>
+              <p>
+                <strong class="text-muted text-decoration-line-through">${{ laptop.selling_price }}</strong>
+                <br>
+                <strong class="text-danger">Now: ${{ laptop.discounted_price }}</strong>
+              </p>
+              <a href="{% url 'product-detail' laptop.id %}" class="btn btn-primary w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No laptop products available.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock main-content %}

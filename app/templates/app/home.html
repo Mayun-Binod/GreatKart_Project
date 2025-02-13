@@ -60,7 +60,7 @@
                     <strong class="text-decoration-line-through">${{ topwear.selling_price }}</strong>
                       <strong class="text-danger">Selling Price:</strong> ${{ topwear.discounted_price }}
                   </p>
-                  <a href="{% url 'product-detail'  %}" class="btn btn-primary w-100">View Details</a>
+                  <a href="{% url 'product-detail' topwear.id  %}" class="btn btn-primary w-100">View Details</a>
               </div>
           </div>
       </div>
@@ -118,7 +118,7 @@
                   <strong class="text-decoration-line-through">${{ bottomwear.selling_price }}</strong>
                     <strong class="text-danger">Selling Price:</strong> ${{ bottomwear.discounted_price }}
                 </p>
-                <a href="{% url 'product-detail'  %}" class="btn btn-primary w-100">View Details</a>
+                <a href="{% url 'product-detail' bottomwear.id  %}" class="btn btn-primary w-100">View Details</a>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@
                   <strong class="text-decoration-line-through">${{ laptop.selling_price }}</strong>
                     <strong class="text-danger">Selling Price:</strong> ${{ laptop.discounted_price }}
                 </p>
-                <a href="{% url 'product-detail'  %}" class="btn btn-primary w-100">View Details</a>
+                <a href="{% url 'product-detail' laptop.id  %}" class="btn btn-primary w-100">View Details</a>
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@
                   <strong class="text-decoration-line-through">${{ mobile.selling_price }}</strong>
                     <strong class="text-danger">Selling Price:</strong> ${{ mobile.discounted_price }}
                 </p>
-                <a href="{% url 'product-detail'%}" class="btn btn-primary w-100">View Details</a>
+                <a href="{% url 'product-detail' mobile.id %}" class="btn btn-primary w-100">View Details</a>
             </div>
         </div>
     </div>

@@ -1,15 +1,51 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Buy Now{% endblock title %}
+{% block title %}Mobile-Product{% endblock title %}
+
 {% block main-content %}
 <div class="container my-5">
- <div class="row">
-  <div class="col-sm-3">
-   Side Bar for Mobile filter
+  <div class="row">
+
+    <!-- Sidebar (Mobile Categories) -->
+    <div class="col-md-3">
+      <div class="list-group shadow-sm">
+        <a href="{% url 'mobile' %}" class="list-group-item list-group-item-action active">All Mobiles</a>
+        <a href="{% url 'mobiledata' 'Redmi' %}" class="list-group-item list-group-item-action">Redmi Mobile</a>
+        <a href="{% url 'mobiledata' 'Iphone' %}" class="list-group-item list-group-item-action">iPhone</a>
+        <a href="{% url 'mobiledata' 'Samsung' %}" class="list-group-item list-group-item-action">Samsung Mobile</a>
+        <a href="{% url 'mobiledata' 'Below' %}" class="list-group-item list-group-item-action">Below 10,000</a>
+        <a href="{% url 'mobiledata' 'Above' %}" class="list-group-item list-group-item-action">Above 10,000</a>
+      </div>
+    </div>
+
+    <!-- Mobile Products Section -->
+    <div class="col-md-9">
+      <h2 class="my-4 text-center">Latest Mobiles</h2>
+
+      <div class="row">
+        {% for mobile in mobiles %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100 shadow-sm border-0 rounded product-card">
+            <img src="{{ mobile.product_image.url }}" class="card-img-top product-img" alt="{{ mobile.title }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ mobile.title }}</h5>
+              <p class="text-muted small">{{ mobile.description|truncatewords:12 }}</p>
+              <p>
+                <strong class="text-muted text-decoration-line-through">${{ mobile.selling_price }}</strong>
+                <br>
+                <strong class="text-danger">Now: ${{ mobile.discounted_price }}</strong>
+              </p>
+              <a href="{% url 'product-detail' mobile.id %}" class="btn btn-primary w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No mobile products available.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+
   </div>
-  <div class="col-sm-8 offset-sm-1">
-   Mobile Product List
-  </div>
- </div>
 </div>
 {% endblock main-content %}

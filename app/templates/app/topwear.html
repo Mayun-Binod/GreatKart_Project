@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}topwear-Product{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+  <div class="row">
+
+    <!-- Sidebar (topwear Categories) -->
+    <div class="col-md-3">
+      <div class="list-group shadow-sm">
+        <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action active">All TopWear Items</a>
+        <a href="{% url 'topweardata' 'Park' %}" class="list-group-item list-group-item-action">Park</a>
+        <a href="{% url 'topweardata' 'Polo' %}" class="list-group-item list-group-item-action">Polo</a>
+        <a href="{% url 'topweardata' 'Below' %}" class="list-group-item list-group-item-action">Below 1,000</a>
+        <a href="{% url 'topweardata' 'Above' %}" class="list-group-item list-group-item-action">Above 1,000</a>
+      </div>
+    </div>
+
+    <!-- Topwear Products Section -->
+    <div class="col-md-9">
+      <h2 class="my-4 text-center">Latest topwears</h2>
+
+      <div class="row">
+        {% for topwear in topwears %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100 shadow-sm border-0 rounded product-card">
+            <img src="{{ topwear.product_image.url }}" class="card-img-top product-img" alt="{{ mobile.title }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ topwear.title }}</h5>
+              <p class="text-muted small">{{ topwear.description|truncatewords:12 }}</p>
+              <p>
+                <strong class="text-muted text-decoration-line-through">${{ topwear.selling_price }}</strong>
+                <br>
+                <strong class="text-danger">Now: ${{ topwear.discounted_price }}</strong>
+              </p>
+              <a href="{% url 'product-detail' topwear.id %}" class="btn btn-primary w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No topwear products available.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}bottomwear-Product{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+  <div class="row">
+
+    <!-- Sidebar (bottomwear Categories) -->
+    <div class="col-md-3">
+      <div class="list-group shadow-sm">
+        <a href="{% url 'bottomwear' %}" class="list-group-item list-group-item-action active">All Bottomwears items</a>
+        <a href="{% url 'bottomweardata' 'Lee' %}" class="list-group-item list-group-item-action">Lee</a>
+        <a href="{% url 'bottomweardata' 'Spykar' %}" class="list-group-item list-group-item-action">Spycar</a>
+        <a href="{% url 'bottomweardata' 'Below' %}" class="list-group-item list-group-item-action">Below 400</a>
+        <a href="{% url 'bottomweardata' 'Above' %}" class="list-group-item list-group-item-action">Above 400</a>
+      </div>
+    </div>
+
+    <!-- bottomwear Products Section -->
+    <div class="col-md-9">
+      <h2 class="my-4 text-center">Latest bottomwears</h2>
+
+      <div class="row">
+        {% for bottomwear in bottomwears %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100 shadow-sm border-0 rounded product-card">
+            <img src="{{ bottomwear.product_image.url }}" class="card-img-top product-img" alt="{{ mobile.title }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ bottomwear.title }}</h5>
+              <p class="text-muted small">{{ bottomwear.description|truncatewords:12 }}</p>
+              <p>
+                <strong class="text-muted text-decoration-line-through">${{ bottomwear.selling_price }}</strong>
+                <br>
+                <strong class="text-danger">Now: ${{ bottomwear.discounted_price }}</strong>
+              </p>
+              <a href="{% url 'product-detail' bottomwear.id %}" class="btn btn-primary w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No bottomwear products available.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock main-content %}

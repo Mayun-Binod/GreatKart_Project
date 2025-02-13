@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-EXTERNAL_APPS=['app']
+EXTERNAL_APPS=['app','accounts']
 INSTALLED_APPS.extend(EXTERNAL_APPS)
 
 MIDDLEWARE = [
@@ -72,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'GreatKart.wsgi.application'
+AUTH_USER_MODEL='accounts.CustomUser' # appname.modelname
 
 
 # Database
@@ -121,6 +122,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 # STATICFILES_DIRS=[STATIC_DIR]
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

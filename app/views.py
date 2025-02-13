@@ -1,7 +1,25 @@
 from django.shortcuts import render
+from app.models import Product,Customer,Cart,OrderPlaced
+from django.views import View
 
-def home(request):
- return render(request, 'app/home.html')
+class ProductView(View):
+    def get(self, request):
+        # Filter products by category
+        topwear = Product.objects.filter(category='TW')
+        bottomwear = Product.objects.filter(category='BW')
+        mobile = Product.objects.filter(category='M')
+        laptop = Product.objects.filter(category='L')
+
+        # Prepare context data
+        context = {
+            'topwears': topwear,
+            'bottomwears': bottomwear,
+            'laptops': laptop,
+            'mobiles': mobile,
+        }
+
+        # Render the template with context
+        return render(request, 'app/home.html', context)
 
 def product_detail(request):
  return render(request, 'app/productdetail.html')
